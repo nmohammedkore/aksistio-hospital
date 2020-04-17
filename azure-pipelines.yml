@@ -1,0 +1,73 @@
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: '7c46c818-aa97-4bd0-be94-312b31bbe20b'
+  imageRepository: 'hospital'
+  containerRegistry: 'dockerstore.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: '$(Build.BuildId)'
+  
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:  
+  - job: Build
+    displayName: Build and push to container registry
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+  - job: PreReleasePrepForhospitalMicroservice
+    dependsOn: Build
+    displayName: Pre Release Preparation For hospital Microservice
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Write your commands here
+            
+            echo 'Hello world'           
+            cat '$(Build.SourcesDirectory)/hospital.yaml'
+
+            echo 'Hello world 0'  
+            value=`cat '$(Build.SourcesDirectory)/hospital.yaml'`
+
+            echo 'Hello world 0.25'  
+            value=${value//##BUILD_ID##/$(Build.BuildId)}
+            
+            echo "$value" > '$(Build.SourcesDirectory)/hospital_build.yaml'
+            echo 'Hello world 1'  
+            value1=`cat '$(Build.SourcesDirectory)/hospital_build.yaml'`
+            echo 'Hello world 2'  
+            echo "$value1"
+
+            mkdir '$(Pipeline.Workspace)/hospital'  
+            echo 'after creation of hospital'  
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Pipeline.Workspace)'
+        artifact: 'hospital'
+        publishLocation: 'pipeline'
