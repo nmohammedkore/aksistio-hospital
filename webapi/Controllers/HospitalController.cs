@@ -9,16 +9,16 @@ namespace Hospital.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PatientController : ControllerBase
+    public class HospitalController : ControllerBase
     {
         private static readonly string[] Hospials = new[]
         {
             "Bowring & Lady Curzon Hospital", "Central Leprosorium", "E.S.I Hospital", "Epidemic Diseases Hospial", "Haji Sir Ismail Sait Ghosha Hospital", "Indira Gandhi Institute of Child Health Hospital", "Jayadeva Institute of Cardiology", "K C General Hospital", "Kidwai Memorial Institute of Oncology", "Lady Willington State T.B Centre"
         };
 
-        private readonly ILogger<PatientController> _logger;
+        private readonly ILogger<HospitalController> _logger;
 
-        public PatientController(ILogger<PatientController> logger)
+        public HospitalController(ILogger<HospitalController> logger)
         {
             _logger = logger;
         }
