@@ -4,8 +4,4 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-<ItemGroup>   
-   <ProjectReference Include="..\Hospital.BaseClasses\Hospital.BaseClasses.csproj" />
- </ItemGroup>
-
 </Project>

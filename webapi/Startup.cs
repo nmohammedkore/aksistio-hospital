@@ -12,6 +12,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Hospital.BaseClasses.Intefaces;
+using Hospital.BaseClasses.Models;
+using Hospital.DataAccess.SqlLite;
 
 namespace Hospital
 {
@@ -28,6 +31,7 @@ namespace Hospital
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<IHospital>(sh => new SqlLiteHospital("Connectionstring"));
             services.AddHealthChecks()
                     .AddCheck<ExHealthCheck>("ex_health_check");
         }

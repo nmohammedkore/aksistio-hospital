@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Hospital.BaseClasses.Intefaces;
+using Hospital.BaseClasses.Models;
+
 
 namespace Hospital.Controllers
 {
@@ -17,16 +20,20 @@ namespace Hospital.Controllers
         };
 
         private readonly ILogger<HospitalController> _logger;
+        private readonly IHospital _hospital;
 
-        public HospitalController(ILogger<HospitalController> logger)
+        public HospitalController(IHospital iHospital, ILogger<HospitalController> logger)
         {
+            _hospital = iHospital;
             _logger = logger;
         }
 
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<HospitalCentre> Get()
         {
-            return Hospials.ToList();
+            /*return Hospials.ToList();*/
+            _logger.LogInformation("Inside cotroller get");
+            return _hospital.GetHospitals();
         }
     }
 }

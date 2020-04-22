@@ -10,5 +10,6 @@
 
  <ItemGroup>
    <ProjectReference Include="..\Hospital.DataAccess.SqlLite\Hospital.DataAccess.SqlLite.csproj" />
+   <ProjectReference Include="..\Hospital.BaseClasses\Hospital.BaseClasses.csproj" />
  </ItemGroup>
 </Project>
