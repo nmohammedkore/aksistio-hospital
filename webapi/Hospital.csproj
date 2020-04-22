@@ -9,6 +9,7 @@
   </ItemGroup>
 
  <ItemGroup>
+   <ProjectReference Include="..\Hospital.DataAccess.AzureSql\Hospital.DataAccess.AzureSql.csproj" />
    <ProjectReference Include="..\Hospital.DataAccess.SqlLite\Hospital.DataAccess.SqlLite.csproj" />
    <ProjectReference Include="..\Hospital.BaseClasses\Hospital.BaseClasses.csproj" />
  </ItemGroup>

@@ -31,7 +31,9 @@ namespace Hospital
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<IHospital>(sh => new SqlLiteHospital("Connectionstring"));
+            //services.AddScoped<IHospital>(sh => new SqlLiteHospital("Connectionstring"));
+            string sqlConfigString = Configuration.GetValue<string>("SqlConnectionString");            
+            services.AddScoped<IHospital>(sh => new SqlLiteHospital(sqlConfigString));
             services.AddHealthChecks()
                     .AddCheck<ExHealthCheck>("ex_health_check");
         }
