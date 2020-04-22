@@ -16,11 +16,11 @@ namespace Hospital
             if (healthCheckResultHealthy)
             {
                 return Task.FromResult(
-                    HealthCheckResult.Healthy("A healthy result."));
+                    HealthCheckResult.Healthy("A healthy Result."));
             }
 
             return Task.FromResult(
-                HealthCheckResult.Unhealthy("An unhealthy result."));
+                HealthCheckResult.Unhealthy("An unhealthy Result."));
         }
     }
 }
