@@ -17,12 +17,18 @@ using Hospital.BaseClasses.Models;
 using Hospital.DataAccess.SqlLite;
 using Hospital.DataAccess.AzureSql;
 
+
 namespace Hospital
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup()
         {
+            var configuration = new ConfigurationBuilder()
+                                .AddJsonFile("appsettings.json")
+                                //.AddJsonFile($"appsettings.{env.EnvironmentName}.json")
+                                .AddEnvironmentVariables()
+                                .Build();
             Configuration = configuration;
         }
 
