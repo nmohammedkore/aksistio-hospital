@@ -1,8 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hospital-api
-  namespace: nm
+  name: hospital-api   
 spec:
   replicas: 1
   selector:
@@ -43,8 +42,7 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: hospital-api-service
-  namespace: nm
+  name: hospital-api-service   
 spec:
   type: ClusterIP
   ports:
