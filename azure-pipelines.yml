@@ -33,7 +33,7 @@ stages:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
+        containerRegistry: $(dockerstore)
         tags: |
           $(tag)
   - job: PreReleasePrepForhospitalMicroservice
