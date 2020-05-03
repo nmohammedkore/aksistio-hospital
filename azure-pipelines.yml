@@ -7,13 +7,14 @@ trigger:
 
 resources:
 - repo: self
+ 
 
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '7c46c818-aa97-4bd0-be94-312b31bbe20b'
+  containerRegistry: 'dockerstore'
   imageRepository: 'hospital'
-  containerRegistry: 'dockerstore.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   
   # Agent VM image name
@@ -32,9 +33,9 @@ stages:
       displayName: Build and push an image to container registry
       inputs:
         command: buildAndPush
-        repository: $(imageRepository)
+        repository: 'hospital'
         dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
+        containerRegistry: $(containerRegistry)
         tags: |
           $(tag)
   - job: PreReleasePrepForhospitalMicroservice
