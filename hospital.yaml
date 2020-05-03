@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: hospital-api
-        image: dockerstore.azurecr.io/hospital:158
+        image: dockerstore.azurecr.io/hospital:##BUILD_ID##
         resources:
           requests:
             memory: "32Mi"
