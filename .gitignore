@@ -25,7 +25,7 @@ vendor/pkg/
 pyenv
 Vagrantfile
 controlpass.ps1
-appsettings*.json
+appsettings.Development.json
 istio-1.4.0*
 istio-1.4.0.zip
 secret.yaml
