@@ -72,3 +72,7 @@ stages:
         targetPath: '$(Pipeline.Workspace)'
         artifact: 'hospital'
         publishLocation: 'pipeline'
+    - task: SoapUIProForAzureDevOpsTask@2
+      inputs:
+        project: 'C:\SoapUI\Projects'
+        rootFolder: '$(Common.TestResultsDirectory)'
