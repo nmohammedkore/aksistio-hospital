@@ -72,6 +72,10 @@ stages:
         targetPath: '$(Pipeline.Workspace)'
         artifact: 'hospital'
         publishLocation: 'pipeline'
+  - job: IntegationTestForMicroservice
+    displayName: Integration Test for Microservice
+    pool:  
+    steps: 
     - task: SoapUIProForAzureDevOpsTask@2
       inputs:
         project: 'C:\SoapUI\Projects'
