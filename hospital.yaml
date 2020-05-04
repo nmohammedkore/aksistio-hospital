@@ -1,8 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hospital-api
-  namespace: nm
+  name: hospital-api   
 spec:
   replicas: 1
   selector:
@@ -15,7 +14,7 @@ spec:
     spec:
       containers:
       - name: hospital-api
-        image: dockerstore.azurecr.io/hospital:158
+        image: dockerstore.azurecr.io/hospital:##BUILD_ID##
         resources:
           requests:
             memory: "32Mi"
@@ -35,18 +34,20 @@ spec:
           initialDelaySeconds: 90
           periodSeconds: 10
         env:              
-        - name: "DeviceName" 
-          value: "aStrangeDevice"        
+        - name: SqlConnectionString
+          valueFrom:
+            secretKeyRef:
+              name: thebigsecret
+              key: SqlConnectionString       
       imagePullSecrets:
       - name: topsecretregistryconnection
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: hospital-api-service
-  namespace: nm
+  name: hospital-api-service   
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
   - name: http
     protocol: TCP

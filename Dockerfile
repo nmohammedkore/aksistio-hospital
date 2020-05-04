@@ -7,12 +7,11 @@ COPY webapi/*.csproj ./webapi/
 RUN dotnet restore
 
 # copy everything else and build app
-COPY webapi/. ./webapi/
-WORKDIR /app/webapi
+COPY . ./
 RUN dotnet publish -c Release -o out
 
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
 WORKDIR /app
-COPY --from=build /app/webapi/out ./
+COPY --from=build /app/out ./
 ENTRYPOINT ["dotnet", "Hospital.dll"]

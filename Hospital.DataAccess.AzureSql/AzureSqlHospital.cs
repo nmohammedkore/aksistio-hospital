@@ -29,6 +29,7 @@ namespace Hospital.DataAccess.AzureSql
                 var sql = "SELECT top 10 * FROM dbo.Hospital";
                 using (var cmd = new SqlCommand(sql, conn))
                 {
+                    conn.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.HasRows)
@@ -48,6 +49,7 @@ namespace Hospital.DataAccess.AzureSql
                         return null;
                     }
                     reader.Close();
+                    conn.Close();
                 }
                 return HospitalCentreList;
             }
