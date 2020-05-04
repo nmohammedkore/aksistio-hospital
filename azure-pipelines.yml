@@ -78,5 +78,5 @@ stages:
     steps: 
     - task: SoapUIProForAzureDevOpsTask@2
       inputs:
-        project: 'C:\SoapUI\Projects'
+        project: 'C:\SoapUI\Projects\REST-Project-1-readyapi-project.xml'
         rootFolder: '$(Common.TestResultsDirectory)'
