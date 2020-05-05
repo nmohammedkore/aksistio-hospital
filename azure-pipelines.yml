@@ -72,3 +72,12 @@ stages:
         targetPath: '$(Pipeline.Workspace)'
         artifact: 'hospital'
         publishLocation: 'pipeline'
+  - job: IntegationTestForMicroservice
+    displayName: Integration Test for Microservice
+    pool: Bingo
+    steps: 
+    - task: SoapUIProForAzureDevOpsTask@2
+      inputs:
+        project: 'C:\SoapUI\Projects\REST-Project-1-readyapi-project.xml'
+        rootFolder: '$(Common.TestResultsDirectory)'
+        testRunnerPath: 'C:\Program Files\SmartBear\ReadyAPI-3.2.5\bin'
