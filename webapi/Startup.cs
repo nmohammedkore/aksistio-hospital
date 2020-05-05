@@ -22,11 +22,11 @@ namespace Hospital
 {
     public class Startup
     {
-        public Startup()
+        public Startup(IWebHostEnvironment env)
         {
             var configuration = new ConfigurationBuilder()
                                 .AddJsonFile("appsettings.json")
-                                //.AddJsonFile($"appsettings.{env.EnvironmentName}.json")
+                                .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
                                 .AddEnvironmentVariables()
                                 .Build();
             Configuration = configuration;

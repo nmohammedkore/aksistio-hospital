@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Hospital.BaseClasses.Intefaces;
@@ -34,6 +35,38 @@ namespace Hospital.Controllers
             /*return Hospials.ToList();*/
             _logger.LogInformation("Inside cotroller get");
             return _hospital.GetHospitals();
+        }
+
+        /// <summary>
+        /// Find pet by ID
+        /// </summary>
+        /// <remarks>Returns a single hospital</remarks>
+        /// <param name="hospitalId">ID of pet to return</param>
+        /// <response code="200">successful operation</response>
+        /// <response code="400">Invalid ID supplied</response>
+        /// <response code="404">Hospital not found</response>
+        /// <response code="500">Server Error</response>
+        [HttpGet]
+        [Route("/hospital/{hospitalId}")]               
+        public virtual IActionResult GetHospitalById([FromRoute]int? hospitalId)
+        { 
+            if ((hospitalId < 1) || (hospitalId > 100))
+            {
+                return StatusCode(400, hospitalId);      
+            }
+            try
+            {    
+                HospitalCentre hc = _hospital.GetHospital((int)hospitalId);
+                if(hc == null)
+                {
+                    return this.NotFound("No hospital found for id : " + hospitalId);                
+                }
+                return StatusCode(200, hc);            
+            } 
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.ToString());
+            }
         }
     }
 }

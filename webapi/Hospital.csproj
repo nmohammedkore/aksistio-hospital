@@ -1,16 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
- <ItemGroup>    
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks" Version="2.2.0" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks" Version="2.2.0"/>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3"/>
   </ItemGroup>
-
- <ItemGroup>
-   <ProjectReference Include="..\Hospital.DataAccess.AzureSql\Hospital.DataAccess.AzureSql.csproj" />
-   <ProjectReference Include="..\Hospital.DataAccess.SqlLite\Hospital.DataAccess.SqlLite.csproj" />
-   <ProjectReference Include="..\Hospital.BaseClasses\Hospital.BaseClasses.csproj" />
- </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hospital.DataAccess.AzureSql\Hospital.DataAccess.AzureSql.csproj"/>
+    <ProjectReference Include="..\Hospital.DataAccess.SqlLite\Hospital.DataAccess.SqlLite.csproj"/>
+    <ProjectReference Include="..\Hospital.BaseClasses\Hospital.BaseClasses.csproj"/>
+  </ItemGroup>
 </Project>

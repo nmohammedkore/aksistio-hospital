@@ -57,7 +57,37 @@ namespace Hospital.DataAccess.AzureSql
 
         public HospitalCentre GetHospital(int id)
         {
-            return new HospitalCentre();
+            if(string.IsNullOrEmpty(connstring))
+                throw new ArgumentException("No connection string in config.json");
+
+            HospitalCentre hc = new HospitalCentre();
+            using (var conn = new SqlConnection(connstring))
+            {
+                var sql = "SELECT * FROM dbo.Hospital where id = " + id;
+                using (var cmd = new SqlCommand(sql, conn))
+                {
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            hc.Id = reader.GetInt32(0);
+                            hc.Name = reader.GetString(1);
+                            Console.WriteLine("{0}\t{1}", reader.GetInt32(0), reader.GetString(1));
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No rows found.");
+                        return null;
+                    }
+                    reader.Close();
+                    conn.Close();
+                }
+                return hc;
+            }
         }
     }
 }
