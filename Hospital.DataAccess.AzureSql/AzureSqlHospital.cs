@@ -39,6 +39,9 @@ namespace Hospital.DataAccess.AzureSql
                             HospitalCentre hc = new HospitalCentre ();
                             hc.Id = reader.GetInt32(0);
                             hc.Name = reader.GetString(1);
+                            hc.Address = reader.GetString(2);
+                            hc.City = reader.GetString(3);
+                            hc.Pincode = reader.GetInt32(4);
                             HospitalCentreList.Add(hc);
                             Console.WriteLine("{0}\t{1}", reader.GetInt32(0), reader.GetString(1));
                         }
@@ -75,6 +78,9 @@ namespace Hospital.DataAccess.AzureSql
                         {
                             hc.Id = reader.GetInt32(0);
                             hc.Name = reader.GetString(1);
+                            hc.Address = reader.GetString(2);
+                            hc.City = reader.GetString(3);
+                            hc.Pincode = reader.GetInt32(4);                             
                             Console.WriteLine("{0}\t{1}", reader.GetInt32(0), reader.GetString(1));
                         }
                     }
