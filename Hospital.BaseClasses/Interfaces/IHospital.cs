@@ -8,5 +8,8 @@ namespace Hospital.BaseClasses.Intefaces
     {
         List<HospitalCentre> GetHospitals();
         HospitalCentre GetHospital(int id);
+        int AddHospital(HospitalCentre hc);
+        int UpdateHospital(HospitalCentre hc);
+        int DeleteHospital(int hospitalId);
     }
 }

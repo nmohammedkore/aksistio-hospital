@@ -43,5 +43,20 @@ namespace Hospital.DataAccess.SqlLite
         {
             return new HospitalCentre();
         }
+
+        public int AddHospital(HospitalCentre hc)
+        {
+            return 0;
+        }
+
+        public int DeleteHospital(int id)
+        {
+            return 0;
+        }
+
+        public int UpdateHospital(HospitalCentre hc)
+        {
+            return 0;
+        }
     }
 }

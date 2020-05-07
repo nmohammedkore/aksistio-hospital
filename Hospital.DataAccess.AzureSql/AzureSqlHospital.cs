@@ -89,5 +89,71 @@ namespace Hospital.DataAccess.AzureSql
                 return hc;
             }
         }
+
+        public int AddHospital(HospitalCentre hc)
+        {
+            if(string.IsNullOrEmpty(connstring))
+                throw new ArgumentException("No connection string in config.json");
+             
+            int idRowsAffected = 0;
+
+            using (var conn = new SqlConnection(connstring))
+            {
+                string maxIdPlus1 = "(select max (id) + 1 from dbo.hospital)";
+                
+                var sql = "INSERT INTO dbo.hospital (id , hospitalname, Address, City, Pincode) " +
+                                       "   VALUES ( " + maxIdPlus1 + ", '" + hc.Name + "'  , '" + hc.Address + "', '" 
+                                            + hc.City + "' , "  + hc.Pincode +  " )"; 
+                
+                
+                using (var cmd = new SqlCommand(sql, conn))
+                {
+                    conn.Open();
+                    idRowsAffected = cmd.ExecuteNonQuery();
+                    Console.WriteLine("Added a row.");
+                    conn.Close();
+                }
+                return idRowsAffected;
+            }
+        }
+
+        public int DeleteHospital(int id)
+        {
+            if(string.IsNullOrEmpty(connstring))
+                throw new ArgumentException("No connection string in config.json"); 
+            
+            int idRowsAffected = 0;
+            using (var conn = new SqlConnection(connstring))
+            {
+                var sql = "Delete FROM dbo.Hospital where id = " + id;
+                using (var cmd = new SqlCommand(sql, conn))
+                {
+                    conn.Open();
+                    idRowsAffected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+                return idRowsAffected;
+            }
+        }
+// hospitalname, Address, City, Pincode
+        public int UpdateHospital(HospitalCentre hc)
+        {
+            if(string.IsNullOrEmpty(connstring))
+                throw new ArgumentException("No connection string in config.json"); 
+            
+            int idRowsAffected = 0;
+            string updateCmd = "UPDATE dbo.Hospital SET hospitalname = '" + hc.Name + "', Address = '" + hc.Address + "',  City = '" + hc.City + "', Pincode = " + hc.Pincode + " where id = " + hc.Id;
+            Console.WriteLine(updateCmd);
+            using (var conn = new SqlConnection(connstring))
+            {
+                using (var cmd = new SqlCommand(updateCmd, conn))
+                {
+                    conn.Open();
+                    idRowsAffected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+                return idRowsAffected;
+            }
+        }
     }
 }

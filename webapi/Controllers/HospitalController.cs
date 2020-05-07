@@ -38,10 +38,10 @@ namespace Hospital.Controllers
         }
 
         /// <summary>
-        /// Find pet by ID
+        /// Find hospital by ID
         /// </summary>
         /// <remarks>Returns a single hospital</remarks>
-        /// <param name="hospitalId">ID of pet to return</param>
+        /// <param name="hospitalId">ID of hospital to return</param>
         /// <response code="200">successful operation</response>
         /// <response code="400">Invalid ID supplied</response>
         /// <response code="404">Hospital not found</response>
@@ -67,6 +67,68 @@ namespace Hospital.Controllers
             {
                 return StatusCode(500, ex.ToString());
             }
+        }
+
+        /// <summary>
+        /// Add a new hospital to the list
+        /// </summary>
+        
+        /// <param name="body">Hospital object that needs to be added to the list</param>
+        /// <response code="405">Invalid input</response>
+        [HttpPost]
+        [Route("/hospital")] 
+        public virtual IActionResult AddHospital([FromBody]HospitalCentre hc)
+        { 
+            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(405);
+            _hospital.AddHospital(hc);
+            return StatusCode(201, hc);  
+        }
+
+        /// <summary>
+        /// Deletes a hospital
+        /// </summary>        
+        /// <param name="hospitalId">Hospital id to delete</param>        
+        /// <response code="400">Invalid ID supplied</response>
+        /// <response code="404">Hospital not found</response>
+        [HttpDelete]
+        [Route("/hospital/{hospitalId}")] 
+        public virtual IActionResult DeleteHospital([FromRoute]int hospitalId)
+        { 
+            Console.WriteLine("Delete hospital with id: " + hospitalId);
+            int rowsAffected =_hospital.DeleteHospital(hospitalId);
+            if(rowsAffected == 0)
+            {
+                return this.NotFound("No hospital found to delete");
+            }
+            else
+            {
+                return Ok("Deleted Hospital with id: " + hospitalId);
+            }
+        }
+
+        /// <summary>
+        /// Updates a hospital in the list
+        /// </summary>
+        /// <remarks>Updates a hospital to the list</remarks>
+        /// <param name="body">Updates Hospital in the list</param>
+        /// <response code="200">hospital updated</response>
+        /// <response code="400">invalid input, object invalid</response>
+        /// <response code="404">hospital does not exists</response>
+        [HttpPatch]
+        [Route("/hospital")]  
+        public virtual IActionResult UpdateHospital([FromBody]HospitalCentre hc)
+        { 
+            Console.WriteLine("Update hospital Controller");
+            int rowsAffected =_hospital.UpdateHospital(hc);
+            if(rowsAffected > 0)
+            {
+                return Ok(hc);
+            }
+            else
+            {
+                return StatusCode(404, hc);
+            } 
         }
     }
 }

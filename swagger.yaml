@@ -1,0 +1,134 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/BRB/Hospital/1.0.0
+info:
+  description: This is a API built for demo purpose. About patients and their treatment plan.
+  version: "1.0.0"
+  title: Hospital
+  contact:
+    email: m.naseem@outlook.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: Hospital
+    description: Hospital related matters
+paths:
+  /hospital/{hospitalId}:
+    get:
+      tags:
+        - Hospital
+      summary: Finds hospital by id
+      operationId: GetHospitalById
+      description: |
+        By passing in the valid id, you can search for
+        the hospial details in the database
+      parameters:
+        - in: path
+          name: hospitalId
+          description: pass the hospitalId for looking up the database
+          required: true
+          schema:
+            type: integer
+          example: 415
+      responses:
+        '200':
+          description: search result matching criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hospital'
+        '400':
+          description: bad input parameter
+    delete:
+      tags:
+        - Hospital
+      summary: deletes a hospital from list
+      operationId: DeleteHospial
+      description: Deletes a hospital from list
+      parameters:
+      - name: hospitalId
+        in: path
+        description: Hospital id to delete
+        required: true
+        schema:
+          type: string
+      responses:
+        '400':
+          description: "Invalid ID supplied"
+        '404':
+          description: "Hospital not found"
+  /hospital:
+    post:
+      tags:
+        - Hospital
+      summary: adds a hospital to the list
+      operationId: AddHospital
+      description: Adds a hospital to the list
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: hospital added
+        '400':
+          description: invalid input, object invalid
+        '409':
+          description: hospital already exists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hospital'
+        description: Add Hospital to list
+    patch:
+      tags:
+        - Hospital
+      summary: Updates a hospital in the list
+      operationId: UpdateHospital
+      description: Updates a hospital to the list
+      responses:
+        '200':
+          description: hospital updated
+        '400':
+          description: invalid input, object invalid
+        '404':
+          description: hospital does not exists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hospital'
+        description: Updates Hospital in the list
+components:
+  schemas:
+    Hospital:
+      type: object
+      required:
+        - Id
+        - Name
+        - Address
+        - City
+        - Pincode
+      properties:
+        id:
+          type: integer
+          example: 56
+        name:
+          type: string
+          example: Epidemic Diseases Hospial
+        Address:
+          type: string
+          example: MAJESTIC
+        City:
+          type: string
+          example: Bangalore
+        Pincode:
+          type: integer
+          example: 562110
+   

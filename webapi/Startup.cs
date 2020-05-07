@@ -26,7 +26,7 @@ namespace Hospital
         {
             var configuration = new ConfigurationBuilder()
                                 .AddJsonFile("appsettings.json")
-                                .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
+                                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
                                 .AddEnvironmentVariables()
                                 .Build();
             Configuration = configuration;
