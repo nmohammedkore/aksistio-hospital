@@ -1,20 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting; 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Hospital.BaseClasses.Intefaces;
-using Hospital.BaseClasses.Models;
-using Hospital.DataAccess.SqlLite;
+using Microsoft.Extensions.Hosting; 
+using Hospital.BaseClasses.Intefaces; 
 using Hospital.DataAccess.AzureSql;
 
 
@@ -41,7 +31,7 @@ namespace Hospital
             //services.AddScoped<IHospital>(sh => new SqlLiteHospital("Connectionstring"));
             string sqlConfigString = Configuration.GetValue<string>("SqlConnectionString");            
             //services.AddScoped<IHospital>(sh => new SqlLiteHospital(sqlConfigString));
-            services.AddScoped<IHospital>(sh => new AzHospital(sqlConfigString));
+            services.AddScoped<IHospitalRepo>(sh => new AzureSqlHospital(sqlConfigString));
             services.AddHealthChecks()
                     .AddCheck<ExHealthCheck>("ex_health_check");
         }

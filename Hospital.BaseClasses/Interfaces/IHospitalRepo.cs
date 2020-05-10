@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Hospital.BaseClasses.Intefaces
 {
-    public interface IHospital
+    public interface IHospitalRepo
     {
         List<HospitalCentre> GetHospitals();
         HospitalCentre GetHospital(int id);

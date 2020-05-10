@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+using System.Collections.Generic; 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Hospital.BaseClasses.Intefaces;
@@ -21,11 +18,11 @@ namespace Hospital.Controllers
         };
 
         private readonly ILogger<HospitalController> _logger;
-        private readonly IHospital _hospital;
+        private readonly IHospitalRepo _hospitalRepo;
 
-        public HospitalController(IHospital iHospital, ILogger<HospitalController> logger)
+        public HospitalController(IHospitalRepo iHospitalRepo, ILogger<HospitalController> logger)
         {
-            _hospital = iHospital;
+            _hospitalRepo = iHospitalRepo;
             _logger = logger;
         }
 
@@ -34,7 +31,7 @@ namespace Hospital.Controllers
         {
             /*return Hospials.ToList();*/
             _logger.LogInformation("Inside cotroller get");
-            return _hospital.GetHospitals();
+            return _hospitalRepo.GetHospitals();
         }
 
         /// <summary>
@@ -50,13 +47,13 @@ namespace Hospital.Controllers
         [Route("/hospital/{hospitalId}")]               
         public virtual IActionResult GetHospitalById([FromRoute]int? hospitalId)
         { 
-            if ((hospitalId < 1) || (hospitalId > 100))
+            if ((hospitalId < 1) || (hospitalId > 99999))
             {
-                return StatusCode(400, hospitalId);      
+                return StatusCode(400, "Hospital Id shoild be between 1 & 99999");      
             }
             try
             {    
-                HospitalCentre hc = _hospital.GetHospital((int)hospitalId);
+                HospitalCentre hc = _hospitalRepo.GetHospital((int)hospitalId);
                 if(hc == null)
                 {
                     return this.NotFound("No hospital found for id : " + hospitalId);                
@@ -81,7 +78,7 @@ namespace Hospital.Controllers
         { 
             //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(405);
-            _hospital.AddHospital(hc);
+            _hospitalRepo.AddHospital(hc);
             return StatusCode(201, hc);  
         }
 
@@ -96,7 +93,7 @@ namespace Hospital.Controllers
         public virtual IActionResult DeleteHospital([FromRoute]int hospitalId)
         { 
             Console.WriteLine("Delete hospital with id: " + hospitalId);
-            int rowsAffected =_hospital.DeleteHospital(hospitalId);
+            int rowsAffected =_hospitalRepo.DeleteHospital(hospitalId);
             if(rowsAffected == 0)
             {
                 return this.NotFound("No hospital found to delete");
@@ -120,7 +117,7 @@ namespace Hospital.Controllers
         public virtual IActionResult UpdateHospital([FromBody]HospitalCentre hc)
         { 
             Console.WriteLine("Update hospital Controller");
-            int rowsAffected =_hospital.UpdateHospital(hc);
+            int rowsAffected =_hospitalRepo.UpdateHospital(hc);
             if(rowsAffected > 0)
             {
                 return Ok(hc);

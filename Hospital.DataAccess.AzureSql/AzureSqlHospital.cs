@@ -6,15 +6,13 @@ using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using System.Data.Common;
 
-
-
 namespace Hospital.DataAccess.AzureSql
 {
-    public class AzHospital : IHospital
+    public class AzureSqlHospital : IHospitalRepo
     {
         private readonly string connstring; 
 
-        public AzHospital(string connectionString)
+        public AzureSqlHospital(string connectionString)
         {
             connstring = connectionString;
         }

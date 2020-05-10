@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital", "webapi\Hospital.csproj", "{2AFDBC5F-F481-479B-9D7C-BBC31EAD2044}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.UnitTests", "Hospital.UnitTests\Hospital.UnitTests.csproj", "{66FE8332-5600-4E4B-BDC5-C964AC0968B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,17 @@ Global
 		{2AFDBC5F-F481-479B-9D7C-BBC31EAD2044}.Release|x64.Build.0 = Release|Any CPU
 		{2AFDBC5F-F481-479B-9D7C-BBC31EAD2044}.Release|x86.ActiveCfg = Release|Any CPU
 		{2AFDBC5F-F481-479B-9D7C-BBC31EAD2044}.Release|x86.Build.0 = Release|Any CPU
+		{66FE8332-5600-4E4B-BDC5-C964AC0968B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66FE8332-5600-4E4B-BDC5-C964AC0968B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66FE8332-5600-4E4B-BDC5-C964AC0968B1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{66FE8332-5600-4E4B-BDC5-C964AC0968B1}.Debug|x64.Build.0 = Debug|Any CPU
+		{66FE8332-5600-4E4B-BDC5-C964AC0968B1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{66FE8332-5600-4E4B-BDC5-C964AC0968B1}.Debug|x86.Build.0 = Debug|Any CPU
+		{66FE8332-5600-4E4B-BDC5-C964AC0968B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66FE8332-5600-4E4B-BDC5-C964AC0968B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66FE8332-5600-4E4B-BDC5-C964AC0968B1}.Release|x64.ActiveCfg = Release|Any CPU
+		{66FE8332-5600-4E4B-BDC5-C964AC0968B1}.Release|x64.Build.0 = Release|Any CPU
+		{66FE8332-5600-4E4B-BDC5-C964AC0968B1}.Release|x86.ActiveCfg = Release|Any CPU
+		{66FE8332-5600-4E4B-BDC5-C964AC0968B1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

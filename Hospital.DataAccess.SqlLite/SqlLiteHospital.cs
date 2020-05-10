@@ -6,7 +6,7 @@ using Hospital.BaseClasses.Models;
 
 namespace Hospital.DataAccess.SqlLite
 {
-    public class SqlLiteHospital : IHospital
+    public class SqlLiteHospital : IHospitalRepo
     {
         private readonly string connstring; 
 
