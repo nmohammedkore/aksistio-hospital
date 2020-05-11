@@ -66,7 +66,7 @@ stages:
             value=`cat '$(Build.SourcesDirectory)/hospital.yaml'`
 
             echo 'Hello world 0.25'  
-            value=${value//##BUILD_ID##/$(Build.BuildId)}
+            value=${value//##BUILD_ID##/$(tag)}
             
             echo "$value" > '$(Build.SourcesDirectory)/hospital_build.yaml'
             echo 'Hello world 1'  
