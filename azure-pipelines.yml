@@ -15,7 +15,7 @@ variables:
   containerRegistry: 'dockerstore'
   imageRepository: 'hospital'
   dockerfilePath: '**/Dockerfile'
-  tag: '$(Build.BuildId)'
+  tag: '$(Build.BuildId)''$(Build.SourceVersion)'
   
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
