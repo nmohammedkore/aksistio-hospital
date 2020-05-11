@@ -21,8 +21,8 @@ variables:
   vmImageName: 'ubuntu-latest'
 
 stages:
-- stage: UnitTestMicroserviceStage
-  displayName: Running Unit tests for the Hospital Microservice
+- stage: UnitTestBuildAndPublish
+  displayName: Unit Test then Build and Push Docket to Register then Publish of release pipeline
   jobs:    
   - job: UnitTest
     displayName: Running Unit tests for the Hospital Microservice
@@ -33,6 +33,7 @@ stages:
       inputs:
         command: 'test'
   - job: Build
+    dependsOn: UnitTest
     displayName: Build and push to container registry
     pool:
       vmImage: $(vmImageName)
