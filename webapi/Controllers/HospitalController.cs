@@ -47,7 +47,7 @@ namespace Hospital.Controllers
         [Route("/hospital/{hospitalId}")]               
         public virtual IActionResult GetHospitalById([FromRoute]int? hospitalId)
         { 
-            if ((hospitalId < 1) || (hospitalId > 99999))
+            if ((hospitalId < 1) || (hospitalId >= 100000))
             {
                 return StatusCode(400, "Hospital Id shoild be between 1 & 99999");      
             }
