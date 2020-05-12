@@ -1,210 +1,178 @@
-{
-    "openapi": "3.0.1",
-    "info": {
-        "title": "Hospital",
-        "description": "This is a API built for demo purpose. About patients and their treatment plan.",
-        "version": "1.0"
-    },
-    "servers": [
-        {
-            "url": "https://oapimanager.azure-api.net"
-        }
-    ],
-    "paths": {
-        "/hospital/{hospitalId}": {
-            "get": {
-                "tags": [
-                    "Hospital"
-                ],
-                "summary": "Finds hospital by id",
-                "description": "By passing in the valid id, you can search for\nthe hospial details in the database\n",
-                "operationId": "GetHospitalById",
-                "parameters": [
-                    {
-                        "name": "hospitalId",
-                        "in": "path",
-                        "description": "pass the hospitalId for looking up the database",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "search result matching criteria",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Hospital"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "bad input parameter"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Hospital"
-                ],
-                "summary": "deletes a hospital from list",
-                "description": "Deletes a hospital from list",
-                "operationId": "DeleteHospial",
-                "parameters": [
-                    {
-                        "name": "hospitalId",
-                        "in": "path",
-                        "description": "Hospital id to delete",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "400": {
-                        "description": "Invalid ID supplied"
-                    },
-                    "404": {
-                        "description": "Hospital not found"
-                    }
-                }
-            }
-        },
-        "/hospital": {
-            "post": {
-                "tags": [
-                    "Hospital"
-                ],
-                "summary": "adds a hospital to the list",
-                "description": "Adds a hospital to the list",
-                "operationId": "AddHospital",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "Add Hospital to list",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Hospital"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "hospital added"
-                    },
-                    "400": {
-                        "description": "invalid input, object invalid"
-                    },
-                    "409": {
-                        "description": "hospital already exists"
-                    }
-                }
-            },
-            "patch": {
-                "tags": [
-                    "Hospital"
-                ],
-                "summary": "Updates a hospital in the list",
-                "description": "Updates a hospital to the list",
-                "operationId": "UpdateHospital",
-                "requestBody": {
-                    "description": "Updates Hospital in the list",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Hospital"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "hospital updated"
-                    },
-                    "400": {
-                        "description": "invalid input, object invalid"
-                    },
-                    "404": {
-                        "description": "hospital does not exists"
-                    }
-                }
-            }
-        }
-    },
-    "components": {
-        "schemas": {
-            "Hospital": {
-                "required": [
-                    "Id",
-                    "Name",
-                    "Address",
-                    "City",
-                    "Pincode"
-                ],
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer",
-                        "example": 56
-                    },
-                    "name": {
-                        "type": "string",
-                        "example": "Epidemic Diseases Hospial"
-                    },
-                    "Address": {
-                        "type": "string",
-                        "example": "MAJESTIC"
-                    },
-                    "City": {
-                        "type": "string",
-                        "example": "Bangalore"
-                    },
-                    "Pincode": {
-                        "type": "integer",
-                        "example": 562110
-                    }
-                }
-            }
-        },
-        "securitySchemes": {
-            "apiKeyHeader": {
-                "type": "apiKey",
-                "name": "Ocp-Apim-Subscription-Key",
-                "in": "header"
-            },
-            "apiKeyQuery": {
-                "type": "apiKey",
-                "name": "subscription-key",
-                "in": "query"
-            }
-        }
-    },
-    "security": [
-        {
-            "apiKeyHeader": []
-        },
-        {
-            "apiKeyQuery": []
-        }
-    ],
-    "tags": [
-        {
-            "name": "Hospital",
-            "description": "Hospital related matters"
-        }
-    ]
-}
+openapi: 3.0.1
+info:
+  title: Hospital
+  description: Demo API. About patients and their treatment plan.
+  version: '1.0'
+servers:
+  - url: 'https://oapimanager.azure-api.net'
+paths:
+  '/hospital':
+    get:
+      tags:
+        - Hospital
+      summary: List all hospitals
+      description: |
+        By passing in the valid id, you can search for
+        the hospial details in the database
+      operationId: GetAllHospitals
+      parameters:
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: This is the subscription key for APIM
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: search result matching criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hospital'
+        '400':
+          description: bad input parameter
+    post:
+      tags:
+        - Hospital
+      summary: adds a hospital to the list
+      description: Adds a hospital to the list
+      operationId: AddHospital
+      parameters:
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: This is the subscription key for APIM
+          schema:
+            type: string
+      requestBody:
+        description: Add Hospital to list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hospital'
+      responses:
+        '201':
+          description: hospital added
+        '400':
+          description: 'invalid input, object invalid'
+        '409':
+          description: hospital already exists
+    patch:
+      tags:
+        - Hospital
+      summary: Updates a hospital in the list
+      description: Updates a hospital to the list
+      operationId: UpdateHospital
+      parameters:
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: This is the subscription key for APIM
+          schema:
+            type: string
+      requestBody:
+        description: Updates Hospital in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hospital'
+      responses:
+        '200':
+          description: hospital updated
+        '400':
+          description: 'invalid input, object invalid'
+        '404':
+          description: hospital does not exists
+  '/hospital/{hospitalId}':
+    get:
+      tags:
+        - Hospital
+      summary: Finds hospital by id
+      description: |
+        By passing in the valid id, you can search for
+        the hospial details in the database
+      operationId: GetHospitalById
+      parameters:
+        - name: hospitalId
+          in: path
+          description: pass the hospitalId for looking up the database
+          required: true
+          schema:
+            type: integer
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: This is the subscription key for APIM
+          schema:
+            type: string
+      responses:
+        '200':
+          description: search result matching criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hospital'
+        '400':
+          description: bad input parameter
+    delete:
+      tags:
+        - Hospital
+      summary: deletes a hospital from list
+      description: Deletes a hospital from list
+      operationId: DeleteHospial
+      parameters:
+        - name: hospitalId
+          in: path
+          description: Hospital id to delete
+          required: true
+          schema:
+            type: string
+        - name: Ocp-Apim-Subscription-Key
+          in: header
+          description: This is the subscription key for APIM
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Hospital not found
+  
+components:
+  schemas:
+    Hospital:
+      required:
+        - Id
+        - Name
+        - Address
+        - City
+        - Pincode
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 56
+        name:
+          type: string
+          example: Epidemic Diseases Hospial
+        Address:
+          type: string
+          example: MAJESTIC
+        City:
+          type: string
+          example: Bangalore
+        Pincode:
+          type: integer
+          example: 562110
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: []
+  - apiKeyQuery: []
+tags:
+  - name: Hospital
+    description: Hospital related matters
