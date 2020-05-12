@@ -4,7 +4,7 @@ servers:
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/BRB/Hospital/1.0.0
 info:
-  description: This is a API built for demo purpose. About patients and their treatment plan.
+  description: Dmo. About patients and their treatment plan.
   version: "1.0.0"
   title: Hospital
   contact:
