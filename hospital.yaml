@@ -38,7 +38,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: hospital-api-service   
-  namespace: nm
+  namespace: default
 spec:
   type: ClusterIP
   ports:
