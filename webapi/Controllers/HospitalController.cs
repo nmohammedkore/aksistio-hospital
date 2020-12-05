@@ -37,12 +37,8 @@ namespace Hospital.Controllers
         /// <summary>
         /// Find hospital by ID
         /// </summary>
-        /// <remarks>Returns a single hospital</remarks>
-        /// <param name="hospitalId">ID of hospital to return</param>
-        /// <response code="200">successful operation</response>
-        /// <response code="400">Invalid ID supplied</response>
-        /// <response code="404">Hospital not found</response>
-        /// <response code="500">Server Error</response>
+        /// <remarks>Returns a  http response OK code</remarks>       
+        /// <response code="200">successful operation</response>        
         [HttpGet]
         [Route("/hospital/TestHospitalConnection")]               
         public virtual IActionResult  TestHospitalConnection()
