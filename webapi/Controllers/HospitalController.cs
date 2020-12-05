@@ -45,7 +45,7 @@ namespace Hospital.Controllers
         /// <response code="500">Server Error</response>
         [HttpGet]
         [Route("/hospital/TestHospitalConnection")]               
-        public string TestHospitalConnection()
+        public virtual IActionResult  TestHospitalConnection()
         {              
             return StatusCode(200, "Hospital saus hello");     
         }
