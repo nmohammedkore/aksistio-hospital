@@ -6,12 +6,37 @@
 	},
 	"item": [
 		{
-			"name": "gethospital",
+			"name": "TestHospitalConnection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2988eefb-d80c-49f6-99b0-d815535943c9",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://20.195.49.72/hospital/TestHospitalConnection",
+					"protocol": "http",
+					"host": [
+						"20",
+						"195",
+						"49",
+						"72"
+					],
+					"path": [
+						"hospital",
+						"TestHospitalConnection"
+					]
 				}
 			},
 			"response": []
