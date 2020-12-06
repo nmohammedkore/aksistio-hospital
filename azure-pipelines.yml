@@ -12,7 +12,7 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '7c46c818-aa97-4bd0-be94-312b31bbe20b'
-  containerRegistry: 'nmprivateregistry'
+  containerRegistry: 'nmpersonalregistry'
   imageRepository: 'hospital'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)-$(Build.SourceVersion)'
