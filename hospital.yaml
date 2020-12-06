@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hospital-api   
-  namespace: default
+  namespace: nm
 spec:
   replicas: 1
   selector:
@@ -38,7 +38,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: hospital-api-service   
-  namespace: default
+  namespace: nm
 spec:
   type: LoadBalancer
   ports:
