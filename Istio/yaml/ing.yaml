@@ -38,8 +38,7 @@ spec:
     match:
     - uri:
         prefix: "/hospital"   
-    rewrite:
-      uri: "/Weatherforecast"
+    
     route:
     - destination:
         host: hospital-api-service.nm.svc.cluster.local    
