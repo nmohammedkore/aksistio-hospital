@@ -25,7 +25,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://20.195.49.72/hospital/TestHospitalConnection",
+					"raw": "http://20.197.64.131/hospital/TestHospitalConnection",
 					"protocol": "http",
 					"host": [
 						"20",
