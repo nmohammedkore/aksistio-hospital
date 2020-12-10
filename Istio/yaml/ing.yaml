@@ -37,8 +37,7 @@ spec:
   - name: "Hospital"    
     match:
     - uri:
-        prefix: "/hospital"   
-    
+        prefix: "/hospital"       
     route:
     - destination:
         host: hospital-api-service.nm.svc.cluster.local    
