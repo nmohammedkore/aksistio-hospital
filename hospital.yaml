@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: hospital-api
-        image: naseem.azurecr.io/hospital:##BUILD_ID##
+        image: demok8.azurecr.io/hospital:##BUILD_ID##
         resources:
           requests:
             memory: "32Mi"
