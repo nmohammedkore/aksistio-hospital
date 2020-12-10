@@ -10,6 +10,6 @@
     <PackageReference Include="coverlet.collector" Version="1.2.0"/>
     <PackageReference Include="NSubstitute" Version="4.2.1"/>
     <ProjectReference Include="..\Hospital.BaseClasses\Hospital.BaseClasses.csproj"/>
-    <ProjectReference Include="..\webapi\Hospital.csproj"/>
+    <ProjectReference Include="..\Hospital\Hospital.csproj"/>
   </ItemGroup>
 </Project>
