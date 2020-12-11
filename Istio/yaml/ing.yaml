@@ -25,15 +25,15 @@ spec:
   gateways:
   - ing-gateway
   http:
-  - name: "Healthcare"    
+  - name: "Nifi"    
     match:
     - uri:
-        prefix: "/healthcare"
+        prefix: "/nifi"
     rewrite:
-      uri: "/Patient"
+      uri: "/nifi"
     route:
     - destination:
-        host: healthcare-api-service.nm.svc.cluster.local
+        host: nifi-api-service.nifi.svc.cluster.local
   - name: "Hospital"    
     match:
     - uri:
