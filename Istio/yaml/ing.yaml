@@ -9,10 +9,10 @@ spec:
   servers:
   - port:
       number: 80
-      name: http
+      name: basehttp
       protocol: HTTP
     hosts:
-    - "*"
+    - "*"       
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -34,6 +34,8 @@ spec:
     route:
     - destination:
         host: nifi-api-service.nifi.svc.cluster.local
+        port: 
+          number: 8080
   - name: "Hospital"    
     match:
     - uri:
