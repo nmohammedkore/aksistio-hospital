@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Hospital.BaseClasses.Intefaces;
-using Hospital.BaseClasses.Models;
+using Hospital.BaseClasses.Models; 
+using System.Threading.Tasks;
+using Azure.Messaging.ServiceBus;
 
 
 namespace Hospital.Controllers
@@ -76,6 +78,41 @@ namespace Hospital.Controllers
             {
                 return StatusCode(500, ex.ToString());
             }
+        }
+
+        static async Task SendMessageAsync(City city)
+        {
+            string connString = "Endpoint=sb://demobusk8.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=Xpmhbbn6TwtKl0agPsIeqCX6z2ZI29UAcWzx7zwxaWk=";
+            // create a Service Bus client 
+            await using (ServiceBusClient client = new ServiceBusClient(connString))
+            {
+                string queueName = "queuecityworksnet";
+                // create a sender for the queue 
+                ServiceBusSender sender = client.CreateSender(queueName);
+
+                // create a message that we can send
+                ServiceBusMessage message = new ServiceBusMessage(city.CityName);
+
+                // send the message
+                await sender.SendMessageAsync(message);
+                Console.WriteLine($"Sent a single message to the queue: {queueName}");
+            }
+        }
+
+        /// <summary>
+        /// Add a new hospital to the list
+        /// </summary>
+        
+        /// <param name="body">Hospital object that needs to be added to the list</param>
+        /// <response code="405">Invalid input</response>
+        [HttpPost]
+        [Route("/hospital/city")] 
+        public virtual IActionResult AddCity([FromBody]City city)
+        { 
+            SendMessageAsync(city).Wait();
+
+
+            return StatusCode(200, city);  
         }
 
         /// <summary>

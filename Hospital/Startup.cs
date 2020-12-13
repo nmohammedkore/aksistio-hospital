@@ -34,6 +34,7 @@ namespace Hospital
             services.AddScoped<IHospitalRepo>(sh => new AzureSqlHospital(sqlConfigString));
             services.AddHealthChecks()
                     .AddCheck<ExHealthCheck>("ex_health_check");
+            services.AddHostedService<Background>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
