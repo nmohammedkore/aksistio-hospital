@@ -92,12 +92,13 @@ namespace Hospital.Controllers
 
                 // create a message that we can send
                 ServiceBusMessage message = new ServiceBusMessage(city.CityName);
-
+                List<ServiceBusMessage> messages = new List<ServiceBusMessage> ();
                 // send the message
-                for(int countL=0; countL<60; countL++)
+                for(int countL=0; countL<1900; countL++)
                 {
-                    await sender.SendMessageAsync(message);
-                }
+                    messages.Add(message);
+                }                    
+                await sender.SendMessagesAsync(messages);
                 Console.WriteLine($"Sent a single message to the queue: {queueName}");
             }
         }
