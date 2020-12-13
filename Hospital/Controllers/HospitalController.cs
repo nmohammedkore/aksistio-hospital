@@ -94,7 +94,10 @@ namespace Hospital.Controllers
                 ServiceBusMessage message = new ServiceBusMessage(city.CityName);
 
                 // send the message
-                await sender.SendMessageAsync(message);
+                for(int countL=0; countL<60; countL++)
+                {
+                    await sender.SendMessageAsync(message);
+                }
                 Console.WriteLine($"Sent a single message to the queue: {queueName}");
             }
         }
@@ -109,6 +112,7 @@ namespace Hospital.Controllers
         [Route("/hospital/city")] 
         public virtual IActionResult AddCity([FromBody]City city)
         { 
+
             SendMessageAsync(city).Wait();
 
 
