@@ -5,6 +5,7 @@ using System.Text;
 using Azure.Messaging.ServiceBus;
 using Azure.Storage.Blobs;
 using System.IO;
+using System.Threading;
 using Azure.Storage.Blobs.Models;
 
 public class QMessageHandler 
@@ -29,7 +30,7 @@ public class QMessageHandler
             // start processing 
             await processor.StartProcessingAsync();
             Console.WriteLine("Wait for a minute and then press any key to end the processing");
-            Console.ReadKey();
+            Thread.Sleep(5000000);
 
             // stop processing 
             Console.WriteLine("\nStopping the receiver...");
