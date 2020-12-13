@@ -8,10 +8,12 @@ spec:
   selector:
     matchLabels:
       app:  hospital-api
+      name: hospital-api
   template:
     metadata:
       labels:
         app:  hospital-api
+        name: hospital-api
     spec:
       containers:
       - name: hospital-api
@@ -47,3 +49,4 @@ spec:
     port: 80      
   selector:
     app:  hospital-api
+    name: hospital-api

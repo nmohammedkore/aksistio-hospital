@@ -21,8 +21,11 @@ public class Background : IHostedService, IDisposable
     {
         _logger.LogInformation("Timed Hosted Service running.");
 
+        //QMessageHandler.init().Wait();
+
         _timer = new Timer(DoWork, null, TimeSpan.Zero, 
-            TimeSpan.FromSeconds(10));
+            TimeSpan.FromSeconds(10000));
+
 
         return Task.CompletedTask;
     }

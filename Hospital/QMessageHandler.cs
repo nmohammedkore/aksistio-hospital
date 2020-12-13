@@ -7,6 +7,8 @@ using Azure.Storage.Blobs;
 using System.IO;
 using System.Threading;
 using Azure.Storage.Blobs.Models;
+using Newtonsoft.Json;
+using Hospital.BaseClasses.Models;
 
 public class QMessageHandler 
 {
@@ -39,7 +41,14 @@ public class QMessageHandler
         }     
     }
 
-    static List<KeyValuePair<string, int>> cityCountList = new List<KeyValuePair<string, int>> ();
+    static List<CityCount> cityCountList = new List<CityCount> ();
+
+    public static async Task init()
+    {
+        string fContents = await ReadFromBlobAsync();
+        Console.WriteLine("fContents" + fContents);
+        //cityCountList = JsonConvert.DeserializeObject<List<CityCount>>(fContents);
+    }
 
     // handle received messages
     static async Task MessageHandler(ProcessMessageEventArgs args)
@@ -47,34 +56,34 @@ public class QMessageHandler
         string body = args.Message.Body.ToString();
          
         Console.WriteLine($"Received Message: {body}");
-        KeyValuePair<string, int> oldCC = new KeyValuePair<string, int> ();
-        KeyValuePair<string, int> newCC = new KeyValuePair<string, int> ();
+        CityCount  oldCC = new CityCount();
+        CityCount  newCC = new CityCount();
         bool found = false;
 
         foreach (var CityCount in cityCountList)
         {
-            if(CityCount.Key==body)
+            if(CityCount.CityName == body)
             {
-                int currentCount = ((int)CityCount.Value);
+                int currentCount =  CityCount.Count;
                 oldCC = CityCount;
-                newCC = new KeyValuePair<string, int>(body, ++currentCount);
-                string newerx = newCC.Key + ":" + newCC.Value;
+                newCC = new CityCount () { CityName = body, Count = ++currentCount } ;//new  KeyValuePair<string, int>(body,);
+                string newerx = newCC.CityName + ":" + newCC.Count;
                 Console.WriteLine("\n oldetimer...", newerx);
                 found = true;
             }            
         }
         if(!found)
         {
-            newCC = new KeyValuePair<string, int>(body, 1);
-            string newerx = newCC.Key + ":" + newCC.Value;
+            newCC = new CityCount { CityName =  body,  Count =1};
+            string newerx = newCC.CityName + ":" + newCC.Count;
             Console.WriteLine("\n firsttimer... " + body);
         }
 
         cityCountList.Remove(oldCC);
         cityCountList.Add(newCC);
-        string older = oldCC.Key + ":" + oldCC.Value;
+        string older = oldCC.CityName + ":" + oldCC.Count;
         Console.WriteLine("\n older... " + older);
-        string newer = newCC.Key + ":" + newCC.Value;
+        string newer = newCC.CityName + ":" + newCC.Count;
         Console.WriteLine("\n newer... " + newer);
         await UploadMessageAsync();
 
@@ -113,17 +122,45 @@ public class QMessageHandler
         await blobClient.UploadAsync(ms, true); 
     }
 
+    static async Task<string> ReadFromBlobAsync()
+    {
+        try
+        {
+            // Create a BlobServiceClient object which will be used to create a container client
+            BlobServiceClient blobServiceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=storagedemok8;AccountKey=jzBHw2//lbnOu3UDGZVabkUkYSft+rDd+bvjif3Bvn/jzlTNF5pAsEyjhygpS1C49/0H88uLXeGEqX2IlcgbzQ==;EndpointSuffix=core.windows.net");
+
+            //Create a unique name for the container
+            string containerName = "processcontainer";
+
+            // Create the container and return a container client object
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+
+            BlobClient blobClient = containerClient.GetBlobClient("score.json");
+    
+            BlobDownloadInfo download = await blobClient.DownloadAsync();
+            byte[] bArray = null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                await download.Content.CopyToAsync(ms);
+                ms.Close();
+                bArray = ms.ToArray();
+            }
+            return Encoding.ASCII.GetString(bArray);
+        }
+        catch
+        {
+            return "{\"cityName\": \"kochi\"}";
+        }
+    }
+
     static string CreateJsonFileContents()
     {
         StringBuilder sb = new StringBuilder();
-        
-        foreach (var CityCount in cityCountList)
-        {
-            string item = "{ \"" +  CityCount.Key + "\" : \"" + CityCount.Value.ToString() + "\" }" ;
-            sb.Append(item);
-        }
-        Console.WriteLine("\n" + sb.ToString());
-        return sb.ToString();
+
+        string json = JsonConvert.SerializeObject(cityCountList);
+         
+        Console.WriteLine("\n" + json);
+        return json;
     }
 
 }

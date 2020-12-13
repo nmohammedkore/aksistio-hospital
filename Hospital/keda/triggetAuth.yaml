@@ -1,0 +1,10 @@
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: trigger-auth-service-bus-hospital
+  namespace: nm
+spec:
+  secretTargetRef:
+  - parameter: connection
+    name: secrets-order-management
+    key: RW5kcG9pbnQ9c2I6Ly9kZW1vYnVzazguc2VydmljZWJ1cy53aW5kb3dzLm5ldC87U2hhcmVkQWNjZXNzS2V5TmFtZT1rZWRhLW1vbml0b3I7U2hhcmVkQWNjZXNzS2V5PVluNitLRDBoYUFZczEyQjF5dTFmTzF4eFZhK2NFRlJsSndQcEFzSE01K2M9O0VudGl0eVBhdGg9cXVldWVjaXR5d29ya3NuZXQ=
