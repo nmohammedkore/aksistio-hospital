@@ -45,6 +45,7 @@ namespace Hospital.Controllers
         [Route("/hospital/TestHospitalConnection")]               
         public virtual IActionResult  TestHospitalConnection()
         {              
+            Console.WriteLine("Hospital saus hello");
             return StatusCode(200, "Hospital saus hello");     
         }
 

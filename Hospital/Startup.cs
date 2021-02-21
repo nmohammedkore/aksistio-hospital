@@ -35,6 +35,7 @@ namespace Hospital
             services.AddHealthChecks()
                     .AddCheck<ExHealthCheck>("ex_health_check");
             services.AddHostedService<Background>();
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +45,15 @@ namespace Hospital
             {
                 app.UseDeveloperExceptionPage();
             }
+ 
+           //app.UseSwagger();
+            
+            app.UseSwagger(c =>
+            {
+                c.RouteTemplate = "/swagger/v1/swagger.json";
+            });
 
+                        
             app.UseRouting();
 
             app.UseAuthorization();
