@@ -6,7 +6,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks" Version="2.2.0"/>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3"/>
     <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.0.0"/>
-    <PackageReference Include="Azure.Storage.Blobs" Version="12.7.0"/>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.13.0"/>
     <PackageReference Include="Microsoft.Azure.Storage.Blob" Version="11.2.2"/>
     <PackageReference Include="Microsoft.WindowsAzure.StorageClient.Async" Version="0.3.2-preview"/>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.7"/>
